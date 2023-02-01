@@ -25,7 +25,7 @@ gradlePlugin {
     // Define the plugin
     val greeting by plugins.creating {
         id = "app.accrescent.tools.bundletool.greeting"
-        implementationClass = "app.accrescent.tools.bundletool.BundletoolGradlePluginPlugin"
+        implementationClass = "app.accrescent.tools.bundletool.BundletoolPlugin"
     }
 }
 
