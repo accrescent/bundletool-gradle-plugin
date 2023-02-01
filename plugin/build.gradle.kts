@@ -10,9 +10,11 @@ repositories {
 }
 
 gradlePlugin {
-    val greeting by plugins.creating {
-        id = "app.accrescent.tools.bundletool.greeting"
-        implementationClass = "app.accrescent.tools.bundletool.BundletoolPlugin"
+    plugins {
+        create("bundletool-gradle-plugin") {
+            id = "app.accrescent.tools.bundletool"
+            implementationClass = "app.accrescent.tools.bundletool.BundletoolPlugin"
+        }
     }
 }
 
