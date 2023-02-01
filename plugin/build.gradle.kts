@@ -6,13 +6,14 @@
  * User Manual available at https://docs.gradle.org/7.6/userguide/custom_plugins.html
  * This project uses @Incubating APIs which are subject to change.
  */
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     // Apply the Java Gradle plugin development plugin to add support for developing Gradle plugins
     `java-gradle-plugin`
 
     // Apply the Kotlin JVM plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.7.10"
+    id("org.jetbrains.kotlin.jvm") version "1.8.0"
 }
 
 repositories {
@@ -25,5 +26,11 @@ gradlePlugin {
     val greeting by plugins.creating {
         id = "app.accrescent.tools.bundletool.greeting"
         implementationClass = "app.accrescent.tools.bundletool.BundletoolGradlePluginPlugin"
+    }
+}
+
+tasks.withType<KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = "11"
     }
 }
