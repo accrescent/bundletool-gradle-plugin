@@ -29,6 +29,12 @@ gradlePlugin {
     }
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
 dependencies {
     compileOnly("com.android.tools:sdklib:30.4.0")
     compileOnly("com.android.tools.build:bundletool:1.14.0")
