@@ -6,6 +6,7 @@ plugins {
 }
 
 repositories {
+    google()
     mavenCentral()
 }
 
@@ -16,6 +17,12 @@ gradlePlugin {
             implementationClass = "app.accrescent.tools.bundletool.BundletoolPlugin"
         }
     }
+}
+
+dependencies {
+    compileOnly("com.android.tools:sdklib:30.4.0")
+    compileOnly("com.android.tools.build:bundletool:1.14.0")
+    compileOnly("com.android.tools.build:gradle:7.4.0")
 }
 
 tasks.withType<KotlinCompile>().configureEach {
