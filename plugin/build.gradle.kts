@@ -10,6 +10,8 @@ repositories {
     mavenCentral()
 }
 
+group = "app.accrescent.tools"
+
 gradlePlugin {
     plugins {
         create("bundletool-gradle-plugin") {
