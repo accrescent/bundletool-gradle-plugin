@@ -13,9 +13,16 @@ repositories {
 group = "app.accrescent.tools"
 
 gradlePlugin {
+    website.set("https://github.com/accrescent/bundletool-gradle-plugin")
+    vcsUrl.set("https://github.com/accrescent/bundletool-gradle-plugin")
+
     plugins {
         create("bundletool-gradle-plugin") {
             id = "app.accrescent.tools.bundletool"
+            displayName = "Bundletool Gradle plugin for Android apps"
+            description = "Generates APK sets for Android apps with bundletool"
+            tags.set(listOf("android"))
+
             implementationClass = "app.accrescent.tools.bundletool.BundletoolPlugin"
         }
     }
