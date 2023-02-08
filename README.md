@@ -19,7 +19,7 @@ Apply the plugin to your Android app by adding the following to your app-level b
 
 ```groovy
 plugins {
-    id "app.accrescent.tools.bundletool" version "0.1.0"
+    id "app.accrescent.tools.bundletool" version "0.1.1"
 }
 ```
 
@@ -27,7 +27,7 @@ plugins {
 
 ```kotlin
 plugins {
-    id("app.accrescent.tools.bundletool") version "0.1.0"
+    id("app.accrescent.tools.bundletool") version "0.1.1"
 }
 ```
 
