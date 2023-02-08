@@ -1,2 +1,2 @@
 rootProject.name = "bundletool-gradle-plugin"
-include("plugin")
+include("bundletool-gradle-plugin")
