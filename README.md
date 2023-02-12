@@ -27,6 +27,8 @@ The resulting APK set will be generated as
 The default signing configuration for the respective app variant will be used to sign the split
 APKs.
 
+This plugin is only compatible with Android Gradle Plugin 7.4.0+.
+
 [Accrescent]: https://accrescent.app
 [`bundletool`]: https://developer.android.com/studio/command-line/bundletool
 [the plugin's home page]: https://plugins.gradle.org/plugin/app.accrescent.tools.bundletool
