@@ -1,5 +1,6 @@
 package app.accrescent.tools.bundletool
 
+import com.android.build.api.AndroidPluginVersion
 import com.android.build.api.artifact.SingleArtifact
 import com.android.build.api.variant.AndroidComponentsExtension
 import com.android.build.api.variant.impl.ApplicationVariantImpl
@@ -9,11 +10,17 @@ import com.android.build.gradle.internal.services.VersionedSdkLoaderService
 import com.android.build.gradle.internal.signing.SigningConfigDataProvider
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.PluginInstantiationException
 import org.gradle.configurationcache.extensions.capitalized
 
 class BundletoolPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         val androidComponents = project.extensions.getByType(AndroidComponentsExtension::class.java)
+        val agpVer = androidComponents.pluginVersion
+
+        if (agpVer < AndroidPluginVersion(7, 4)) {
+            throw PluginInstantiationException("$agpVer not supported. Use 7.4.0 or higher.")
+        }
 
         androidComponents.onVariants { variant ->
             val variantName = variant.name.capitalized()
