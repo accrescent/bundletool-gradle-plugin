@@ -13,27 +13,9 @@ outside of Accrescent.
 
 ## Usage
 
-Apply the plugin to your Android app by adding the following to your app-level build script:
-
-#### Groovy
-
-```groovy
-plugins {
-    id "app.accrescent.tools.bundletool" version "0.1.1"
-}
-```
-
-#### Kotlin
-
-```kotlin
-plugins {
-    id("app.accrescent.tools.bundletool") version "0.1.1"
-}
-```
-
-You can then build split APKs for your app by running `./gradlew buildApks${variant}`. For example,
-if your app has a `release` variant, you can build the corresponding split APKs with the following
-command:
+Apply the plugin to your Android app as described on [the plugin's home page]. You can then build
+split APKs for your app by running `./gradlew buildApks${variant}`. For example, if your apps has a
+`release` variant, you can build the corresponding split APKs with the following command:
 
 ```
 $ ./gradlew buildApksRelease
@@ -47,3 +29,4 @@ APKs.
 
 [Accrescent]: https://accrescent.app
 [`bundletool`]: https://developer.android.com/studio/command-line/bundletool
+[the plugin's home page]: https://plugins.gradle.org/plugin/app.accrescent.tools.bundletool
