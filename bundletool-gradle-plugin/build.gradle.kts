@@ -38,7 +38,7 @@ java {
 dependencies {
     compileOnly("com.android.tools:sdklib:30.4.2")
     compileOnly("com.android.tools.build:bundletool:1.14.0")
-    compileOnly("com.android.tools.build:gradle:7.4.2")
+    compileOnly("com.android.tools.build:gradle:8.0.0")
 }
 
 tasks.withType<KotlinCompile>().configureEach {
