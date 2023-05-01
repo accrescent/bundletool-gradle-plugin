@@ -36,7 +36,7 @@ java {
 }
 
 dependencies {
-    compileOnly("com.android.tools:sdklib:31.0.0")
+    compileOnly("com.android.tools:sdklib:31.0.1")
     compileOnly("com.android.tools.build:bundletool:1.14.1")
     compileOnly("com.android.tools.build:gradle:8.0.0")
 }
