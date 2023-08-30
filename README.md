@@ -28,7 +28,7 @@ bundletool {
 ```
 
 You can then build split APKs for your app by running `./gradlew buildApks${variant}`. For example,
-if your apps has a `release` variant, you can build the corresponding split APKs with the following
+if your app has a `release` variant, you can build the corresponding split APKs with the following
 command:
 
 ```
