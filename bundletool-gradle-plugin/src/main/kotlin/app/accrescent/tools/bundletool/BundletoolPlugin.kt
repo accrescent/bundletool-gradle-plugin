@@ -4,8 +4,6 @@ import com.android.SdkConstants
 import com.android.build.api.AndroidPluginVersion
 import com.android.build.api.artifact.SingleArtifact
 import com.android.build.api.variant.AndroidComponentsExtension
-import com.android.build.api.variant.impl.ApplicationVariantImpl
-import com.android.build.gradle.internal.signing.SigningConfigDataProvider
 import com.android.repository.Revision
 import com.android.sdklib.BuildToolInfo
 import org.gradle.api.Plugin
@@ -16,6 +14,10 @@ import java.nio.file.Paths
 
 class BundletoolPlugin : Plugin<Project> {
     override fun apply(project: Project) {
+        val bundletoolExtension = project
+            .extensions
+            .create(BundletoolExtension.NAME, BundletoolExtension::class.java)
+
         val androidComponents = project.extensions.getByType(AndroidComponentsExtension::class.java)
         val agpVer = androidComponents.pluginVersion
         if (agpVer < AndroidPluginVersion(7, 4)) {
@@ -25,7 +27,6 @@ class BundletoolPlugin : Plugin<Project> {
         androidComponents.onVariants { variant ->
             val variantName = variant.name.capitalized()
             val bundle = variant.artifacts.get(SingleArtifact.BUNDLE)
-            val signingConfigDataProvider = SigningConfigDataProvider.create(variant as ApplicationVariantImpl)
 
             val buildToolsDir = Paths.get(
                 androidComponents.sdkComponents.sdkDirectory.get().toString(),
@@ -44,8 +45,11 @@ class BundletoolPlugin : Plugin<Project> {
 
             project.tasks.register("buildApks${variantName}", BundletoolTask::class.java) {
                 it.bundleProperty.set(bundle)
-                it.signingConfigDataProvider = signingConfigDataProvider
                 it.buildToolInfo.set(buildToolInfo)
+                it.signingConfigStoreFile.set(bundletoolExtension.signingConfig.storeFile)
+                it.signingConfigStorePassword.set(bundletoolExtension.signingConfig.storePassword)
+                it.signingConfigKeyAlias.set(bundletoolExtension.signingConfig.keyAlias)
+                it.signingConfigKeyPassword.set(bundletoolExtension.signingConfig.keyPassword)
                 it.destination.set(outFile)
             }
         }
