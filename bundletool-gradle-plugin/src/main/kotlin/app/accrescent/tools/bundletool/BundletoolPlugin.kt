@@ -1,23 +1,23 @@
 package app.accrescent.tools.bundletool
 
+import com.android.SdkConstants
 import com.android.build.api.AndroidPluginVersion
 import com.android.build.api.artifact.SingleArtifact
 import com.android.build.api.variant.AndroidComponentsExtension
 import com.android.build.api.variant.impl.ApplicationVariantImpl
-import com.android.build.gradle.internal.plugins.AppPlugin
-import com.android.build.gradle.internal.plugins.BasePlugin
-import com.android.build.gradle.internal.services.VersionedSdkLoaderService
 import com.android.build.gradle.internal.signing.SigningConfigDataProvider
+import com.android.repository.Revision
+import com.android.sdklib.BuildToolInfo
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.PluginInstantiationException
 import org.gradle.configurationcache.extensions.capitalized
+import java.nio.file.Paths
 
 class BundletoolPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         val androidComponents = project.extensions.getByType(AndroidComponentsExtension::class.java)
         val agpVer = androidComponents.pluginVersion
-
         if (agpVer < AndroidPluginVersion(7, 4)) {
             throw PluginInstantiationException("$agpVer not supported. Use 7.4.0 or higher.")
         }
@@ -27,16 +27,15 @@ class BundletoolPlugin : Plugin<Project> {
             val bundle = variant.artifacts.get(SingleArtifact.BUNDLE)
             val signingConfigDataProvider = SigningConfigDataProvider.create(variant as ApplicationVariantImpl)
 
-            val buildToolInfo = run {
-                // Forgive me
-                val plugin = project.plugins.getPlugin(AppPlugin::class.java)
-                val field = BasePlugin::class.java
-                    .declaredFields
-                    .filter { it.name == "versionedSdkLoaderService\$delegate" }[0]
-                    .apply { isAccessible = true }
-                val sdkLoaderService = (field.get(plugin) as Lazy<*>).value as VersionedSdkLoaderService
-                sdkLoaderService.versionedSdkLoader.get().buildToolInfoProvider
-            }
+            val buildToolsDir = Paths.get(
+                androidComponents.sdkComponents.sdkDirectory.get().toString(),
+                SdkConstants.FD_BUILD_TOOLS,
+                SdkConstants.CURRENT_BUILD_TOOLS_VERSION,
+            )
+            val buildToolInfo = BuildToolInfo.fromStandardDirectoryLayout(
+                Revision.parseRevision(SdkConstants.CURRENT_BUILD_TOOLS_VERSION),
+                buildToolsDir,
+            )
 
             val outFile = project
                 .layout
