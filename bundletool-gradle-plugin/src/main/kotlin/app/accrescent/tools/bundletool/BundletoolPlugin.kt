@@ -38,10 +38,11 @@ class BundletoolPlugin : Plugin<Project> {
                 buildToolsDir,
             )
 
+            val outPath = Paths.get("outputs", "apkset", variant.name, "app-${variant.name}.apks")
             val outFile = project
                 .layout
                 .buildDirectory
-                .file("outputs/apkset/${variant.name}/app-${variant.name}.apks")
+                .file(outPath.toString())
 
             project.tasks.register("buildApks${variantName}", BundletoolTask::class.java) {
                 it.bundleProperty.set(bundle)
