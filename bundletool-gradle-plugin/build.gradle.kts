@@ -11,7 +11,7 @@ repositories {
 }
 
 group = "app.accrescent.tools"
-version = "0.2.1"
+version = "0.2.2"
 
 gradlePlugin {
     website.set("https://github.com/accrescent/bundletool-gradle-plugin")
