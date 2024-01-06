@@ -34,7 +34,7 @@ kotlin {
 }
 
 dependencies {
-    compileOnly("com.android.tools:common:31.2.0")
+    compileOnly("com.android.tools:common:31.2.1")
     compileOnly("com.android.tools:sdklib:31.2.0")
     compileOnly("com.android.tools.build:bundletool:1.15.6")
     compileOnly("com.android.tools.build:gradle-api:8.2.1")
