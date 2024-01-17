@@ -1,5 +1,6 @@
 package app.accrescent.tools.bundletool
 
+import com.android.bundle.Commands.BuildApksResult
 import com.android.sdklib.BuildToolInfo
 import com.android.tools.build.bundletool.androidtools.Aapt2Command
 import com.android.tools.build.bundletool.commands.BuildApksCommand
@@ -14,7 +15,14 @@ import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import java.io.File
+import java.nio.file.FileSystems
+import java.nio.file.Path
 import java.util.Optional
+import kotlin.io.path.deleteExisting
+import kotlin.io.path.inputStream
+import org.gradle.api.tasks.Optional as OptionalProperty
+
+const val METADATA_PATH = "toc.pb"
 
 abstract class BundletoolTask : DefaultTask() {
     @get:InputFile
@@ -34,6 +42,10 @@ abstract class BundletoolTask : DefaultTask() {
 
     @get:Input
     abstract val signingConfigKeyPassword: Property<String?>
+
+    @get:Input
+    @get:OptionalProperty
+    abstract val stripStandalones: Property<Boolean>
 
     @get:OutputFile
     abstract val destination: RegularFileProperty
@@ -66,5 +78,24 @@ abstract class BundletoolTask : DefaultTask() {
             .setSigningConfiguration(bundletoolSigningConfig)
             .build()
             .execute()
+
+        // Strip requested files
+        val classLoader: ClassLoader? = null
+        FileSystems.newFileSystem(destination.get().asFile.toPath(), classLoader).use { zipfs ->
+            val metadata = zipfs
+                .getPath(METADATA_PATH)
+                .inputStream()
+                .use { BuildApksResult.newBuilder().mergeFrom(it).build() }
+
+            metadata.variantList.forEach { variant ->
+                variant.apkSetList.forEach { apkSet ->
+                    apkSet.apkDescriptionList.forEach { apkDescription ->
+                        if (stripStandalones.get() && apkDescription.hasStandaloneApkMetadata()) {
+                            zipfs.getPath(apkDescription.path).deleteExisting()
+                        }
+                    }
+                }
+            }
+        }
     }
 }

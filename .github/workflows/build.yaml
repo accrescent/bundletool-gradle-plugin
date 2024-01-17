@@ -12,5 +12,8 @@ jobs:
           distribution: temurin
           java-version: 21
           cache: gradle
+      - uses: arduino/setup-protoc@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build with Gradle
         run: ./gradlew build --no-daemon

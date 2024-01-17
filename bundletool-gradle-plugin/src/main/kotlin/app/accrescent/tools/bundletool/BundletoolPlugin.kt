@@ -52,6 +52,11 @@ class BundletoolPlugin : Plugin<Project> {
                 it.signingConfigKeyAlias.set(bundletoolExtension.signingConfig.keyAlias)
                 it.signingConfigKeyPassword.set(bundletoolExtension.signingConfig.keyPassword)
                 it.destination.set(outFile)
+
+                it.stripStandalones.convention(true)
+                if (bundletoolExtension.stripStandalones.isPresent) {
+                    it.stripStandalones.set(bundletoolExtension.stripStandalones)
+                }
             }
         }
     }

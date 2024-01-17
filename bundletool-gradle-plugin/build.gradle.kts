@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    id("com.google.protobuf") version "0.9.4"
     id("com.gradle.plugin-publish") version "1.2.1"
     id("org.jetbrains.kotlin.jvm") version "1.9.22"
 }
@@ -38,6 +39,7 @@ dependencies {
     compileOnly("com.android.tools:sdklib:31.2.1")
     compileOnly("com.android.tools.build:bundletool:1.15.6")
     compileOnly("com.android.tools.build:gradle-api:8.2.1")
+    implementation("com.google.protobuf:protobuf-java:3.25.2")
 }
 
 tasks.withType<KotlinCompile>().configureEach {
