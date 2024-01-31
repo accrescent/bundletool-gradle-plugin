@@ -16,4 +16,4 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build with Gradle
-        run: ./gradlew build --no-daemon
+        run: ./gradlew build
