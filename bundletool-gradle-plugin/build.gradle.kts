@@ -39,7 +39,7 @@ dependencies {
     compileOnly("com.android.tools:sdklib:31.2.2")
     compileOnly("com.android.tools.build:bundletool:1.15.6")
     compileOnly("com.android.tools.build:gradle-api:8.2.2")
-    implementation("com.google.protobuf:protobuf-java:3.25.2")
+    implementation("com.google.protobuf:protobuf-java:4.26.0")
 }
 
 tasks.withType<KotlinCompile>().configureEach {
