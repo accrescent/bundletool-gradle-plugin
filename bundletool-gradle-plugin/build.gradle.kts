@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("com.google.protobuf") version "0.9.4"
-    id("com.gradle.plugin-publish") version "1.2.1"
+    id("com.gradle.plugin-publish") version "1.3.1"
     id("org.jetbrains.kotlin.jvm") version "1.9.22"
 }
 
