@@ -2,6 +2,9 @@
 
 A Gradle plugin to manage building split APKs with bundletool.
 
+> [!NOTE]
+> This project is unmaintained and is no longer receiving updates.
+
 ## About
 
 [`bundletool`] is Google's tool for generating and signing split APKs, the modern format for
